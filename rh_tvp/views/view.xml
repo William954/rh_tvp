@@ -10,6 +10,9 @@
                   <field name="antiquity"/>
                   <field name="antiquity_years" invisible='1'/>
                   <field name="date_in"/>
+                  <field name="month_in" invisible="1"/>
+                  <field name="month_born" invisible="1"/>
+
                   <field name="date_out" attrs="{'invisible': [('active','=',True)]}"/>
                   <field name="reason" attrs="{'invisible': [('active','=',True)]}"/>
                   <field name="commnets" attrs="{'invisible': [('active','=',True)]}"/>

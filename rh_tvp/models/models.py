@@ -17,6 +17,26 @@ class RHFields(models.Model):
 	date_out = fields.Date(string='Fecha de Baja')
 	reason = fields.Selection([('1','Renuncia'),('2','Recorte de Personal'),('3','Fin de Contrato'),('4','Otro')],string='Motivo de Baja')
 	commnets = fields.Text(string='Comentarios')
+	month_in = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
+                          (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'), 
+                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Month in', compute="_month_in")
+	month_born = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
+                          (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'), 
+                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Month born', compute="_month_born")
+
+
+	@api.one
+	@api.depends('date_in','month_in')
+	def _month_in(self):
+		if self.date_in:
+			self.month_in = datetime.strptime(str(self.date_in), '%Y-%m-%d').strftime('%m')	
+
+
+	@api.one
+	@api.depends('birthday','month_born')
+	def _month_born(self):
+		if self.birthday:
+			self.month_born = datetime.strptime(str(self.birthday), '%Y-%m-%d').strftime('%m')	
 
 
 	@api.one
