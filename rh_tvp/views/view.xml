@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>      
+      <record id="inherit_fields_hremployee" model="ir.ui.view">
+              <field name="name">inherit.field.employee</field>
+              <field name="model">hr.employee</field>
+              <field name="inherit_id" ref="hr.view_employee_form"/>
+              <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_phone']" position="after">
+                  <field name="antiquity"/>
+                  <field name="antiquity_years" invisible='1'/>
+                  <field name="date_in"/>
+                  <field name="date_out" attrs="{'invisible': [('active','=',True)]}"/>
+                  <field name="reason" attrs="{'invisible': [('active','=',True)]}"/>
+                  <field name="commnets" attrs="{'invisible': [('active','=',True)]}"/>
+                </xpath>
+              </field>
+      </record>
+
+      <record id="inherit_fields_hrleave_type" model="ir.ui.view">
+              <field name="name">inherit.field.leave</field>
+              <field name="model">hr.leave.type</field>
+              <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+              <field name="arch" type="xml">
+                <xpath expr="//field[@name='validation_type']" position="after">
+                  <field name="validity"/>
+                  <field name="days"/>
+                  <field name="antiquity_years"/>
+                </xpath>
+              </field>
+      </record>
+
+      <record id="inherit_fields_hrleave" model="ir.ui.view">
+              <field name="name">inherit.field.leave.asignations</field>
+              <field name="model">hr.leave.allocation</field>
+              <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form_manager"/>
+              <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                  <field name="antiquity"/>
+                  <field name="validity"/>
+                  <field name="date_in"/>
+                  <field name="comple_laboral"/>
+                  <field name="vencimiento"/>
+                </xpath>
+              </field>
+      </record>
+
+      <record id="inherit_view_tree" model="ir.ui.view">
+              <field name="name">inherit.tree.leave.asignations</field>
+              <field name="model">hr.leave.report</field>
+              <field name="inherit_id" ref="hr_holidays.hr_leave_report_tree"/>
+              <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_to']" position="attributes">
+                  <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_from']" position="attributes">
+                  <attribute name="invisible">1</attribute>
+                </xpath>
+              </field>
+      </record>
+      
+  </data>
+</odoo>
