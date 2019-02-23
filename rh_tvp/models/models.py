@@ -19,10 +19,10 @@ class RHFields(models.Model):
 	commnets = fields.Text(string='Comentarios')
 	month_in = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
                           (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'), 
-                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Entrada', compute="_month_in" )
+                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Entrada', store=True, compute="_month_in" )
 	month_born = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
                           (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'), 
-                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Compleaños', compute="_month_born")
+                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Compleaños', store=True, compute="_month_born")
 
 
 	@api.one
