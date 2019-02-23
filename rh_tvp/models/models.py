@@ -19,21 +19,23 @@ class RHFields(models.Model):
 	commnets = fields.Text(string='Comentarios')
 	month_in = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
                           (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'), 
-                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Month in')
+                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Entrada', compute="_month_in", store=True)
 	month_born = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
                           (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'), 
-                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Month born')
+                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Compleaños', compute="_month_born", store=True)
 
 
-	@api.onchange('date_in')
+	@api.one
+	@api.depends('date_in','month_in')
 	def _month_in(self):
 		if self.date_in:
 			self.month_in = datetime.strptime(str(self.date_in), '%Y-%m-%d').strftime('%m')	
 
 
-	@api.onchange('birthday')
+	@api.one
+	@api.depends('birthday','month_born')
 	def _month_born(self):
-		if self.birthday:
+		if self.date_in:
 			self.month_born = datetime.strptime(str(self.birthday), '%Y-%m-%d').strftime('%m')	
 
 
