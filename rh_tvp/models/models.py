@@ -19,10 +19,10 @@ class RHFields(models.Model):
 	commnets = fields.Text(string='Comentarios')
 	month_in = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
                           (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'), 
-                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Entrada', compute="_month_in", store=True)
+                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Entrada', store=True, compute="_month_in" )
 	month_born = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
                           (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'), 
-                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Compleaños', compute="_month_born", store=True)
+                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Compleaños', store=True, compute="_month_born")
 
 
 	@api.one
@@ -35,7 +35,7 @@ class RHFields(models.Model):
 	@api.one
 	@api.depends('birthday','month_born')
 	def _month_born(self):
-		if self.date_in:
+		if self.birthday:
 			self.month_born = datetime.strptime(str(self.birthday), '%Y-%m-%d').strftime('%m')	
 
 
