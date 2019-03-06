@@ -20,7 +20,8 @@
                 'hr_holidays',
                 'sale_management',
                 'timesheet_grid',
-                'account'],
+                'account',
+                'hr_contract'],
 
     'data': ['views/view.xml'],
     'installable': True,

@@ -6,16 +6,21 @@
               <field name="model">hr.employee</field>
               <field name="inherit_id" ref="hr.view_employee_form"/>
               <field name="arch" type="xml">
-                <xpath expr="//field[@name='work_phone']" position="after">
-                  <field name="antiquity"/>
-                  <field name="antiquity_years" invisible='1'/>
-                  <field name="date_in"/>
-                  <field name="month_in" invisible="1"/>
-                  <field name="month_born" invisible="1"/>
-
-                  <field name="date_out" attrs="{'invisible': [('active','=',True)]}"/>
-                  <field name="reason" attrs="{'invisible': [('active','=',True)]}"/>
-                  <field name="commnets" attrs="{'invisible': [('active','=',True)]}"/>
+                <xpath expr="//gruop[@name='active_group']" position="before">
+                  <gruop>
+                    <field name="antiquity"/>
+                    <field name="antiquity_years" invisible='1'/>
+                    <field name="date_in"/>
+                    <field name="month_in" invisible="1"/>
+                    <field name="month_born" invisible="1"/>
+                    <field name="date_out" attrs="{'invisible': [('active','=',True)]}"/>
+                    <field name="reason" attrs="{'invisible': [('active','=',True)]}"/>
+                    <field name="commnets" attrs="{'invisible': [('active','=',True)]}"/>
+                  </gruop>
+                </xpath>
+                <xpath expr="//field[@name='bank_account_id']" position="after">
+                  <field name="imss" />
+                  <field name="vat_tvp" />
                 </xpath>
               </field>
       </record>
@@ -62,5 +67,17 @@
               </field>
       </record>
       
+      <record id="inherit_hr_contract" model="ir.ui.view">
+              <field name="name">inherit.hr.contract</field>
+              <field name="model">hr.contract</field>
+              <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+              <field name="arch" type="xml">
+                <xpath expr="//field[@name='wage']" position="after">
+                      <field name="salary_biweekly" />
+                      <field name="salary_annual" />
+                </xpath>
+              </field>
+      </record>
+
   </data>
 </odoo>

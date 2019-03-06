@@ -23,6 +23,8 @@ class RHFields(models.Model):
 	month_born = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
                           (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'), 
                           (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Compleaños', stored=True, compute="_month_born")
+	imss = fields.Char(string="IMSS")
+	vat_tvp = fields.Char(string="RFC")
 
 
 	@api.one
@@ -110,3 +112,10 @@ class leaveasignations(models.Model):
 
 
 
+class HrContact(models.Model):
+	_inherit = 'hr.contract'
+
+	contract_company = fields.Char('res.company',string='Empresa Contratante')
+	anual_base = fields.Selection([('1','1'),('2','12.5'),('3','14'),('4','16'),('5','17')],string='Base Anual')
+	salary_biweekly = fields.Float(string='Salario Quincenal')
+	salary_annual = fields.Float(string='Salario Anual')
