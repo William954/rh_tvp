@@ -78,7 +78,7 @@
                       <field name="contract_company" />
                       <field name="anual_base" />
                 </xpath>
-                <xpath expr="//page[@name'other']" position="inside">
+                <xpath expr="//page[@name='other']" position="inside">
                   <group string="Bajas y Resiciones de Contrato">
                     <field name="date_low" />
                     <field name="reason_low" />
