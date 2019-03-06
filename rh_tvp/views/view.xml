@@ -76,6 +76,10 @@
                       <field name="salary_biweekly" />
                       <field name="salary_annual" />
                 </xpath>
+                <xpath expr="//field[@name='type_id']" position="after">
+                      <field name="contract_company" />
+                      <field name="anual_base" />
+                </xpath>
               </field>
       </record>
 
