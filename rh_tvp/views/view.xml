@@ -20,13 +20,6 @@
                   <field name="imss" />
                   <field name="vat_tvp" />
                 </xpath>
-                <xpath expr="//page[@name'other']">
-                  <field name="date_low" />
-                  <field name="reason_low" />
-                  <field name="settlement" />
-                  <field name="commnets" />
-                </xpath>
-
               </field>
       </record>
 
@@ -85,6 +78,13 @@
                       <field name="contract_company" />
                       <field name="anual_base" />
                 </xpath>
+                <xpath expr="//page[@name'other']">
+                  <field name="date_low" />
+                  <field name="reason_low" />
+                  <field name="settlement" />
+                  <field name="commnets" />
+                </xpath>
+
               </field>
       </record>
 
