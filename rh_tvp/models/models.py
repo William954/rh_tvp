@@ -119,6 +119,11 @@ class HrContact(models.Model):
 	anual_base = fields.Selection([('1','1'),('2','12.5'),('3','14'),('4','16'),('5','17')],string='Base Anual')
 	salary_biweekly = fields.Float(string='Salario Quincenal',compute="_salary_annual")
 	salary_annual = fields.Float(string='Salario Anual',compute="_salary_biweekly")
+	date_low = fields.Date(string="Fecha de Baja")
+	reason_low = fields.Selection([('1','Contrato Vencido'),('2','Renuncia Voluntaria'),('3','Renovacion de Contrato')],string="Motivo de baja del contrato")
+	settlement = fields.Float(string="Monto Finiquitado")
+	commnets = fields.Text(string="Comentarios")
+
 
 
 	@api.one
