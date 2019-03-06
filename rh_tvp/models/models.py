@@ -117,8 +117,8 @@ class HrContact(models.Model):
 
 	contract_company = fields.Many2one('res.company',string='Empresa Contratante')
 	anual_base = fields.Selection([('1','1'),('2','12.5'),('3','14'),('4','16'),('5','17')],string='Base Anual')
-	salary_biweekly = fields.Float(string='Salario Quincenal')
-	salary_annual = fields.Float(string='Salario Anual')
+	salary_biweekly = fields.Float(string='Salario Quincenal',compute="_salary_annual")
+	salary_annual = fields.Float(string='Salario Anual',compute="_salary_biweekly")
 
 
 	@api.one
