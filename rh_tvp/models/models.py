@@ -115,7 +115,7 @@ class leaveasignations(models.Model):
 class HrContact(models.Model):
 	_inherit = 'hr.contract'
 
-	contract_company = fields.Char('res.company',string='Empresa Contratante')
+	contract_company = fields.Many2one('res.company',string='Empresa Contratante')
 	anual_base = fields.Selection([('1','1'),('2','12.5'),('3','14'),('4','16'),('5','17')],string='Base Anual')
 	salary_biweekly = fields.Float(string='Salario Quincenal')
 	salary_annual = fields.Float(string='Salario Anual')
