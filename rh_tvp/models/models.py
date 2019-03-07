@@ -128,7 +128,12 @@ class HrContact(models.Model):
 
 	@api.one
 	@api.depends('anual_base','salary_annual','wage')
-	def _salary_annual(self):
+	def _salary_annual(self,vals):
+		self.salary_annual = float(get.vals('anual_base')) * self.wage
+
+
+
+
 		if self.anual_base == 1:
 			self.salary_annual = self.wage * 1
 			# if self.anual_base == 2:
