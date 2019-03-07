@@ -79,7 +79,7 @@
                       <field name="anual_base" />
                 </xpath>
                 <xpath expr="//page[@name='other']" position="inside">
-                  <group string="Bajas y Resiciones de Contrato" attrs="{'invisible': [('active','=',False)]}">
+                  <group string="Bajas y Resiciones de Contrato" attrs="{'invisible': [('active','=',True)]}">
                     <field name="date_low" />
                     <field name="reason_low" />
                     <field name="settlement" />
