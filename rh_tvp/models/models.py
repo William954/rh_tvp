@@ -118,7 +118,7 @@ class HrContact(models.Model):
 	contract_company = fields.Many2one('res.company',string='Empresa Contratante')
 	anual_base = fields.Selection([('1','1'),('2','12.5'),('3','14'),('4','16'),('5','17')],string='Base Anual')
 	salary_biweekly = fields.Float(string='Salario Quincenal',compute="_salary_biweekly")
-	salary_annual = fields.Float(string='Salario Anual')
+	salary_annual = fields.Float(string='Salario Anual',compute="_salary_annual")
 	date_low = fields.Date(string="Fecha de Baja")
 	reason_low = fields.Selection([('1','Contrato Vencido'),('2','Renuncia Voluntaria'),('3','Renovacion de Contrato')],string="Motivo de baja del contrato")
 	settlement = fields.Float(string="Monto Finiquitado")
@@ -126,25 +126,19 @@ class HrContact(models.Model):
 
 
 
-	# @api.multi
-	# @api.depends('anual_base','salary_annual','wage')
-	# def _salary_annual(self,vals):
-	# 	base = vals.get('anual_base')
-	# 	self.salary_annual = base * self.wage
-
-
-
-
-	# 	# if self.anual_base == 1:
-	# 	# 	self.salary_annual = self.wage * 1
-	# 	# 	# if self.anual_base == 2:
-	# 	# 	# 	self.salary_annual = (self.wage * 12.5)
-	# 	# 	# 	if self.anual_base == 3:
-	# 	# 	# 		self.salary_annual = (self.wage * 14)
-	# 	# 	# 		if self.anual_base == 4:
-	# 	# 	# 			self.salary_annual = (self.wage * 16)
-	# 	# 	# 			if self.anual_base == 5:
-	# 	# 	# 				self.salary_annual = (self.wage * 17)
+	@api.multi
+	@api.depends('anual_base','salary_annual','wage')
+	def _salary_annual(self,vals):
+		if self.anual_base == 1:
+			self.salary_annual = self.wage * 1
+			if self.anual_base == 2:
+				self.salary_annual = (self.wage * 12.5)
+				if self.anual_base == 3:
+					self.salary_annual = (self.wage * 14)
+					if self.anual_base == 4:
+						self.salary_annual = (self.wage * 16)
+						if self.anual_base == 5:
+							self.salary_annual = (self.wage * 17)
 
 	@api.one
 	@api.depends('salary_biweekly','wage')
