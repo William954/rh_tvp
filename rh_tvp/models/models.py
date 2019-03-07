@@ -126,7 +126,7 @@ class HrContact(models.Model):
 
 
 
-	@api.one
+	@api.multi
 	@api.depends('anual_base','salary_annual','wage')
 	def _salary_annual(self,vals):
 		base = vals.get('anual_base')
