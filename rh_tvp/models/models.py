@@ -130,7 +130,7 @@ class HrContact(models.Model):
 	@api.depends('anual_base','salary_annual','wage')
 	def _salary_annual(self):
 		if self.anual_base == 1:
-			self.salary_annual = (self.wage * 1)
+			self.salary_annual = self.wage * 1
 			# if self.anual_base == 2:
 			# 	self.salary_annual = (self.wage * 12.5)
 			# 	if self.anual_base == 3:
