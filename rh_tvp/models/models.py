@@ -25,7 +25,7 @@ class RHFields(models.Model):
                           (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Compleaños', stored=True, compute="_month_born")
 	imss = fields.Char(string="IMSS")
 	vat_tvp = fields.Char(string="RFC")
-
+	curp_tvp = fields.Char(string="CURP")
 
 	@api.one
 	@api.depends('date_in','month_in')
@@ -120,7 +120,7 @@ class HrContact(models.Model):
 	salary_biweekly = fields.Float(string='Salario Quincenal',compute="_salary_biweekly")
 	salary_annual = fields.Float(string='Salario Anual',compute="_salary_annual")
 	date_low = fields.Date(string="Fecha de Baja")
-	reason_low = fields.Selection([('1','Contrato Vencido'),('2','Renuncia Voluntaria'),('3','Renovacion de Contrato')],string="Motivo de baja del contrato")
+	reason_low = fields.Selection([('1','Contrato Vencido'),('2','Renuncia Voluntaria'),('3','Renovacion de Contrato'),('4','Cambio de puesto o departamento'),('5','Recorte de Personal')],string="Motivo de baja del contrato")
 	settlement = fields.Float(string="Monto Finiquitado")
 	commnets = fields.Text(string="Comentarios")
 
