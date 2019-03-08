@@ -1,8 +1,8 @@
 {
-    'name': 'Ausencias TVP',
+    'name': 'Complementos TVP',
     'version': '1.0',
     'summary': 'Personalizacion de campos',
-    'description': 'Adecuacion en el modulo de Ausencias o Leaves para el manejo de vacaciones en la empresa TVP',
+    'description': 'Adecuacion en el modulo de Ausencias, Empleados y Contratos para el manejo de informacion en la empresa TVP',
     'category': 'Personalizacion',
     'author': 'Xmarts',
     'website': 'www.xmarts.com',
