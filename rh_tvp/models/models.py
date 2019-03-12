@@ -15,14 +15,14 @@ class RHFields(models.Model):
 
 	date_in = fields.Date(string='Fecha de Ingreso')
 	date_out = fields.Date(string='Fecha de Baja')
-	reason = fields.Selection([('1','Renuncia'),('2','Recorte de Personal'),('3','Fin de Contrato'),('4','Otro')],string='Motivo de Baja')
+	reason = fields.Selection([('1','Renuncia'),('2','Recorte de Personal'),('3','Fin de Contrato'),('4','Otro')], string='Motivo de Baja')
 	commnets = fields.Text(string='Comentarios')
-	month_in = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
-                          (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'), 
-                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Entrada', stored=True, compute="_month_in" )
-	month_born = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
-                          (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'), 
-                          (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')], string='Mes de Compleaños', stored=True, compute="_month_born")
+	month_in = fields.Selection([(1, '01'), (2, '02'), (3, '03'), (4, '04'),
+								(5, '05'), (6, '06'), (7, '07'), (8, '08'),
+								(9, '09'), (10, '10'), (11, '11'), (12, '12')], string='Mes de Entrada', stored=True, compute="_month_in")
+	month_born = fields.Selection([(1, '01'), (2, '02'), (3, '03'), (4, '04'),
+								(5, '05'), (6, '06'), (7, '07'), (8, '08'),
+								(9, '09'), (10, '10'), (11, '11'), (12, '12')], string='Mes de Compleaños', stored=True, compute="_month_born")
 	imss = fields.Char(string="IMSS")
 	vat_tvp = fields.Char(string="RFC")
 	curp_tvp = fields.Char(string="CURP")
