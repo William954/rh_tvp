@@ -75,7 +75,7 @@
                       <field name="salary_annual" />
                 </xpath>
                 <xpath expr="//field[@name='type_id']" position="after">
-                      <field name="contract_company" />
+                      <field name="contract_company" domain="[('is_company','=',True)]"/>
                       <field name="anual_base" />
                 </xpath>
                 <xpath expr="//page[@name='other']" position="inside">

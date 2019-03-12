@@ -8,7 +8,7 @@ from dateutil.relativedelta import relativedelta
 
 class RHFields(models.Model):
 
-	_inherit = 'hr.employee'
+    _inherit = 'hr.employee'
 
 	antiquity = fields.Char(string='Antigüedad', compute='_antiquity_calculation')
 	antiquity_years = fields.Integer(string='Antigüedad Años',compute ='_compute_years')
@@ -115,7 +115,7 @@ class leaveasignations(models.Model):
 class HrContact(models.Model):
 	_inherit = 'hr.contract'
 
-	contract_company = fields.Many2one('res.company',string='Empresa Contratante')
+	contract_company = fields.Many2one('res.partner',string='Empresa Contratante')
 	anual_base = fields.Selection([('1','1'),('2','12.5'),('3','14'),('4','16'),('5','17')],string='Base Anual')
 	salary_biweekly = fields.Float(string='Salario Quincenal',compute="_salary_biweekly")
 	salary_annual = fields.Float(string='Salario Anual',compute="_salary_annual")
