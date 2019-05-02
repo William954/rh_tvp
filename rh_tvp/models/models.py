@@ -30,12 +30,6 @@ class RHFields(models.Model):
     imss = fields.Char(string="IMSS")
     vat_tvp = fields.Char(string="RFC")
     curp_tvp = fields.Char(string="CURP")
-    depto_name = fields.Char(string='Nombre del Departamento')
-
-    @api.onchange('department_id')
-    def _onchange_name_depto(self):
-        if self.department_id:
-            self.depto_name = self.department_id.name
 
     @api.one
     def _current_month(self):
@@ -84,6 +78,17 @@ class RHFields(models.Model):
                     fields.Date.from_string(record.date_in)).years
             else:
                 record.antiquity_years = 0
+
+
+class DepartmentName(models.Model)
+    _inherit = 'hr.department'
+
+    depto_name = fields.Char(string='Nombre del Departamento')
+
+    @api.onchange('department_id')
+    def _onchange_name_depto(self):
+        if self.department_id:
+            self.depto_name = self.department_id.name
 
 
 class leavefields(models.Model):
