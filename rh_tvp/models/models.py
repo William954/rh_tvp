@@ -80,7 +80,7 @@ class RHFields(models.Model):
                 record.antiquity_years = 0
 
 
-class DepartmentName(models.Model)
+class DepartmentName(models.Model):
     _inherit = 'hr.department'
 
     depto_name = fields.Char(string='Nombre del Departamento')
