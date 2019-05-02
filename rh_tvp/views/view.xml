@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data>      
+  <data>
       <record id="inherit_fields_hremployee" model="ir.ui.view">
               <field name="name">inherit.field.employee</field>
               <field name="model">hr.employee</field>
               <field name="inherit_id" ref="hr.view_employee_form"/>
               <field name="arch" type="xml">
-                <xpath expr="//field[@name='department_id']" position="after">
-                  <field name="depto_name"/>
-                </xpath>
                 <xpath expr="//field[@name='vehicle']" position="after">
                     <field name="antiquity"/>
                     <field name="antiquity_years"/>
@@ -23,6 +20,9 @@
                 <xpath expr="//field[@name='bank_account_id']" position="after">
                   <field name="imss" />
                   <field name="vat_tvp"/>
+                </xpath>
+                <xpath expr="//field[@name='job_id']" position="before">
+                  <field name="depto_name" attrs="{'invisible': [('depto_name','=',False)]}"/>
                 </xpath>
               </field>
       </record>
@@ -68,7 +68,7 @@
                 </xpath>
               </field>
       </record>
-      
+
       <record id="inherit_hr_contract" model="ir.ui.view">
               <field name="name">inherit.hr.contract</field>
               <field name="model">hr.contract</field>
@@ -93,6 +93,5 @@
 
               </field>
       </record>
-
   </data>
 </odoo>
