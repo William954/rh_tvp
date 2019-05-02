@@ -21,7 +21,15 @@
                   <field name="imss" />
                   <field name="vat_tvp"/>
                 </xpath>
-                <xpath expr="//field[@name='job_id']" position="before">
+              </field>
+      </record>
+
+      <record id="inherit_fields_hrdepartment" model="ir.ui.view">
+              <field name="name">inherit.field.employee.department</field>
+              <field name="model">hr.employee</field>
+              <field name="inherit_id" ref="hr.view_employee_form"/>
+              <field name="arch" type="xml">
+                      <xpath expr="//field[@name='job_id']" position="before">
                   <field name="depto_name" attrs="{'invisible': [('depto_name','=',False)]}"/>
                 </xpath>
               </field>
@@ -93,5 +101,6 @@
 
               </field>
       </record>
+
   </data>
 </odoo>
