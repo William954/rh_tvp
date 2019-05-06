@@ -20,9 +20,9 @@
                   <field name="imss" />
                   <field name="vat_tvp" />
                 </xpath>
-                <xpath expr="//field[@name='department_id']" position="after">
-                  <field name="depto_name"/>
-                </xpath>
+                <!--<xpath expr="//field[@name='department_id']" position="after">-->
+                  <!--<field name="depto_name"/>-->
+                <!--</xpath>-->
               </field>
       </record>
 
