@@ -30,7 +30,7 @@ class RHFields(models.Model):
     curp_tvp = fields.Char(string="CURP")
     depto_name = fields.Char(string='Nombre del Departamento')
 
-
+    @api.one
     @api.onchange('department_id')
     def _onchange_name_depto(self):
         if self.department_id:
