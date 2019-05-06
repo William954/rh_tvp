@@ -21,7 +21,7 @@
                   <field name="vat_tvp" />
                 </xpath>
                 <xpath expr="//field[@name='department_id']" position="after">
-                  <field name="depto_name" attrs="{'invisible': [('depto_name','=',False)]}"/>
+                  <field name="depto_name"/>
                 </xpath>
               </field>
       </record>
