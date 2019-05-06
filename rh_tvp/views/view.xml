@@ -11,18 +11,18 @@
                     <field name="antiquity_years"/>
                     <field name="date_in"/>
                     <field name="month_in"/>
-                    <field name="month_born"/>
+                    <field name="month_born" />
                     <field name="date_out" attrs="{'invisible': [('active','=',True)]}"/>
                     <field name="reason" attrs="{'invisible': [('active','=',True)]}"/>
                     <field name="commnets" attrs="{'invisible': [('active','=',True)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='bank_account_id']" position="after">
                   <field name="imss" />
-                  <field name="vat_tvp" />
+                  <field name="vat_tvp"/>
                 </xpath>
-                <!--<xpath expr="//field[@name='department_id']" position="after">-->
-                  <!--<field name="depto_name"/>-->
-                <!--</xpath>-->
+                <xpath expr="//field[@name='department_id']" position="after">
+                  <field name="depto_name" attrs="{'invisible': [('depto_name','=',False)]}"/>
+                </xpath>
               </field>
       </record>
 
@@ -78,7 +78,7 @@
                       <field name="salary_annual" />
                 </xpath>
                 <xpath expr="//field[@name='type_id']" position="after">
-                      <field name="contract_company" />
+                      <field name="contract_company" domain="[('is_company','=',True)]"/>
                       <field name="anual_base" />
                 </xpath>
                 <xpath expr="//page[@name='other']" position="inside">
@@ -89,6 +89,7 @@
                     <field name="commnets" />
                   </group>
                 </xpath>
+
               </field>
       </record>
 

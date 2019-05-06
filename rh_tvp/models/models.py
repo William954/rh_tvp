@@ -17,24 +17,23 @@ class RHFields(models.Model):
         [('1', 'Renuncia'), ('2', 'Recorte de Personal'), ('3', 'Fin de Contrato'), ('4', 'Otro')],
         string='Motivo de Baja')
     commnets = fields.Text(string='Comentarios')
-    month_in = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
-                                 (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'),
-                                 (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')],
-                                string='Mes de Entrada', stored=True, compute="_month_in")
-    month_born = fields.Selection([(1, 'enero'), (2, 'febrero'), (3, 'marzo'), (4, 'abril'),
-                                   (5, 'mayo'), (6, 'junio'), (7, 'julio'), (8, 'agosto'),
-                                   (9, 'septiembre'), (10, 'octubre'), (11, 'noviembre'), (12, 'diciembre')],
-                                  string='Mes de Compleaños', stored=True, compute="_month_born")
+    month_in = fields.Selection([(1, '01'), (2, '02'), (3, '03'), (4, '04'),
+                                 (5, '05'), (6, '06'), (7, '07'), (8, '08'),
+                                 (9, '09'), (10, '10'), (11, '11'), (12, '12')], string='Mes de Entrada', store=True,
+                                compute="_month_in")
+    month_born = fields.Selection([(1, '01'), (2, '02'), (3, '03'), (4, '04'),
+                                   (5, '05'), (6, '06'), (7, '07'), (8, '08'),
+                                   (9, '09'), (10, '10'), (11, '11'), (12, '12')], string='Mes de Compleaños',
+                                  store=True, compute="_month_born")
     imss = fields.Char(string="IMSS")
     vat_tvp = fields.Char(string="RFC")
     curp_tvp = fields.Char(string="CURP")
     depto_name = fields.Char(string='Nombre del Departamento')
 
-    # @api.one
-    # @api.onchange('department_id')
-    # def _onchange_name_depto(self):
-    #     if self.department_id:
-    #         self.depto_name = self.department_id.name
+    @api.onchange('department_id')
+    def _onchange_name_depto(self):
+        if self.department_id:
+            self.depto_name = self.department_id.name
 
     @api.one
     @api.depends('date_in', 'month_in')
@@ -121,7 +120,7 @@ class leaveasignations(models.Model):
 class HrContact(models.Model):
     _inherit = 'hr.contract'
 
-    contract_company = fields.Many2one('res.company', string='Empresa Contratante')
+    contract_company = fields.Many2one('res.partner', string='Empresa Contratante')
     anual_base = fields.Selection([('1', '1'), ('2', '12.5'), ('3', '14'), ('4', '16'), ('5', '17')],
                                   string='Base Anual')
     salary_biweekly = fields.Float(string='Salario Quincenal', compute="_salary_biweekly")
