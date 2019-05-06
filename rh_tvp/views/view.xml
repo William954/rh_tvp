@@ -21,9 +21,9 @@
                   <field name="imss" />
                   <field name="vat_tvp"/>
                 </xpath>
-                <xpath expr="//field[@name='department_id']" position="after">
-                  <field name="depto_name" attrs="{'invisible': [('depto_name','=',False)]}"/>
-                </xpath>
+                <!--<xpath expr="//field[@name='department_id']" position="after">-->
+                  <!--<field name="depto_name" attrs="{'invisible': [('depto_name','=',False)]}"/>-->
+                <!--</xpath>-->
               </field>
       </record>
 
