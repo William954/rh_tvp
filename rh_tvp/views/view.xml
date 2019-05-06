@@ -18,12 +18,9 @@
                     <field name="commnets" attrs="{'invisible': [('active','=',True)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='bank_account_id']" position="after">
-                  <field name="imss" />
+                  <field name="imss"/>
                   <field name="vat_tvp"/>
                 </xpath>
-                <!--<xpath expr="//field[@name='department_id']" position="after">-->
-                  <!--<field name="depto_name" attrs="{'invisible': [('depto_name','=',False)]}"/>-->
-                <!--</xpath>-->
               </field>
       </record>
 
