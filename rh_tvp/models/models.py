@@ -32,10 +32,10 @@ class RHFields(models.Model):
     curp_tvp = fields.Char(string="CURP")
     depto_name = fields.Char(string='Nombre del Departamento')
 
-    @api.onchange('department_id')
-    def _onchange_name_depto(self):
-        if self.department_id:
-            self.depto_name = self.department_id.name
+    # @api.onchange('department_id')
+    # def _onchange_name_depto(self):
+    #     if self.department_id:
+    #         self.depto_name = self.department_id.name
 
     @api.one
     def _current_month(self):
