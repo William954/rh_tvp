@@ -11,8 +11,6 @@ class RHFields(models.Model):
 
     antiquity = fields.Char(string='Antigüedad', compute='_antiquity_calculation')
     antiquity_years = fields.Integer(string='Antigüedad Años', compute='_compute_years')
-    current_month = fields.Char(string='Mes actual', store=True, compute="_current_month")
-
     date_in = fields.Date(string='Fecha de Ingreso')
     date_out = fields.Date(string='Fecha de Baja')
     reason = fields.Selection(
@@ -32,10 +30,10 @@ class RHFields(models.Model):
     curp_tvp = fields.Char(string="CURP")
     depto_name = fields.Char(string='Nombre del Departamento')
 
-
-    @api.one
-    def _current_month(self):
-        self.current_month = datetime.today().strftime('%m')
+    @api.onchange('department_id')
+    def _onchange_name_depto(self):
+        if self.department_id:
+            self.depto_name = self.department_id.name
 
     @api.one
     @api.depends('date_in', 'month_in')
