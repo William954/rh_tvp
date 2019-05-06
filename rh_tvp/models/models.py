@@ -28,9 +28,7 @@ class RHFields(models.Model):
     imss = fields.Char(string="IMSS")
     vat_tvp = fields.Char(string="RFC")
     curp_tvp = fields.Char(string="CURP")
-
-
-depto_name = fields.Char(string='Nombre del Departamento')
+    depto_name = fields.Char(string='Nombre del Departamento')
 
 
 @api.onchange('department_id')
