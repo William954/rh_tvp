@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, _, tools, fields, models, exceptions, SUPERUSER_ID
-# from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
+from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
 from datetime import datetime, date, time
 from dateutil.relativedelta import relativedelta
 
@@ -62,7 +62,7 @@ class RHFields(models.Model):
             if self.date_out and self.date_in:
                 datein = fields.Datetime.from_string(self.date_in)
                 dateout = fields.Datetime.from_string(self.date_out)
-                diff = relativedelta(dateout, datein, '%Y-%m-%d')
+                diff = relativedelta(dateout, datein)
                 years = diff.years
                 months = diff.months
                 days = diff.days
