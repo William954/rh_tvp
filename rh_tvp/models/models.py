@@ -60,8 +60,8 @@ class RHFields(models.Model):
         else:
 
             if self.date_out and self.date_in:
-                datein = fields.Datetime.from_string(self.date_in)
-                dateout = fields.Datetime.from_string(self.date_out)
+                datein = datetime.strptime(str(self.date_in), '%Y-%m-%d')
+                dateout = datetime.strptime(str(self.date_out), '%Y-%m-%d')
                 diff = relativedelta(dateout, datein, '%Y-%m-%d')
                 years = diff.years
                 months = diff.months
