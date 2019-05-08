@@ -63,8 +63,8 @@ class RHFields(models.Model):
     @api.depends('date_in', 'date_out', 'antiquity_out', 'active')
     def _antiquity_calculation_out(self):
             if self.date_out and self.date_in:
-                datein = datetime.strptime(str(self.date_in), '%Y-%m-%d')
-                dateout = datetime.strptime(str(self.date_out), '%Y-%m-%d')
+                datein = datetime.strptime(str(self.date_in))
+                dateout = datetime.strptime(str(self.date_out))
                 diff = relativedelta(dateout, datein, '%Y-%m-%d')
                 years = diff.years
                 months = diff.months
