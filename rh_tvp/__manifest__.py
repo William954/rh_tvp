@@ -1,5 +1,5 @@
 {
-    'name': 'Complementos TVP',
+    'name': 'Campos para RH, Contratos y Ausencias',
     'version': '1.0',
     'summary': 'Personalizacion de campos',
     'description': 'Adecuacion en el modulo de Ausencias, Empleados y Contratos para el manejo de informacion en la empresa TVP',
@@ -10,16 +10,7 @@
                 'hr_attendance',
                 'contacts',
                 'hr',
-                'fleet',
-                'sale',
-                'crm',
-                'helpdesk',
-                'hr_expense',
-                'stock',
-                'project',
                 'hr_holidays',
-                'sale_management',
-                'timesheet_grid',
                 'account',
                 'hr_contract'],
 
@@ -28,6 +19,5 @@
     'aplication': True,
     'auto_install': False,
 }
-
 
 
