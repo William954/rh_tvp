@@ -8,6 +8,7 @@
               <field name="arch" type="xml">
                 <xpath expr="//field[@name='vehicle']" position="after">
                     <field name="antiquity"/>
+                    <field name="antiquity_out"/>
                     <field name="antiquity_years"/>
                     <field name="date_in"/>
                     <field name="month_in"/>
