@@ -10,6 +10,7 @@ class RHFields(models.Model):
     _inherit = 'hr.employee'
 
     antiquity = fields.Char(string='Antigüedad', compute='_antiquity_calculation')
+    antiquity_out = fields.Char(string='Antigüedad de baja', compute='_antiquity_calculation_out')
     antiquity_years = fields.Integer(string='Antigüedad Años', compute='_compute_years')
     date_in = fields.Date(string='Fecha de Ingreso')
     date_out = fields.Date(string='Fecha de Baja')
@@ -57,8 +58,10 @@ class RHFields(models.Model):
                 months = diff.months
                 days = diff.days
                 self.antiquity = '{} Años {} Meses {} Dias'.format(years, months, days)
-        else:
 
+    @api.one
+    @api.depends('date_in', 'date_out', 'antiquity_out', 'active')
+    def _antiquity_calculation_out(self):
             if self.date_out and self.date_in:
                 datein = datetime.strptime(str(self.date_in), '%Y-%m-%d')
                 dateout = datetime.strptime(str(self.date_out), '%Y-%m-%d')
