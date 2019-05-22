@@ -51,6 +51,10 @@
                   <field name="comple_laboral"/>
                   <field name="vencimiento"/>
                 </xpath>
+                <xpath expr="//field[@name='accrual']" position="after">
+                  <field name="unusable_days"/>
+                  <field name="extended_permission"/>
+                </xpath>
               </field>
       </record>
 
@@ -92,6 +96,15 @@
 
               </field>
       </record>
-
+      <record id="inherit_leaves_total_days" model="ir.ui.view">
+              <field name="name">inherit.field.leave_total_days</field>
+              <field name="model">hr.leave</field>
+              <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+              <field name="arch" type="xml">
+                <xpath expr="//field[@name='department_id']" position="after">
+                  <field name="days_before_approval"/>
+                </xpath>
+              </field>
+      </record>
   </data>
 </odoo>

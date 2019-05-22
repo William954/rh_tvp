@@ -79,44 +79,6 @@ class RHFields(models.Model):
             else:
                 record.antiquity_years = 0
 
-
-class leavefields(models.Model):
-    _inherit = 'hr.leave.type'
-
-    validity = fields.Integer(string='Vigencia en meses', default=18)
-    days = fields.Integer(string='Dias')
-    antiquity_years = fields.Integer(string='Antigüedad')
-
-
-class leaveasignations(models.Model):
-    _inherit = 'hr.leave.allocation'
-
-    antiquity = fields.Integer(string='Antigüedad Años')
-    validity = fields.Integer(string='Vigencia en meses', default=18)
-    date_in = fields.Date(string='Fecha de Ingreso')
-    antiquity_years_allocation = fields.Integer(related='holiday_status_id.antiquity_years', string='')
-    comple_laboral = fields.Date(string='Cumpleaños Laboral', compute='_cumple_laboral_calcution')
-    vencimiento = fields.Date(string='Vencimiento', compute='_cumple_laboral_calcution')
-
-    @api.onchange('employee_id')
-    def _onchange_antiquity(self):
-        if self.employee_id:
-            self.antiquity = self.employee_id.antiquity_years
-            self.date_in = self.employee_id.date_in
-
-    @api.onchange('holiday_status_id')
-    def _onchange_days(self):
-        if self.holiday_status_id:
-            self.number_of_days_display = self.holiday_status_id.days
-
-    @api.one
-    @api.depends('date_in', 'comple_laboral', 'antiquity', 'validity')
-    def _cumple_laboral_calcution(self):
-        if self.date_in:
-            self.comple_laboral = fields.Date.from_string(self.date_in) + relativedelta(years=self.antiquity)
-            self.vencimiento = fields.Date.from_string(self.comple_laboral) + relativedelta(months=self.validity)
-
-
 class HrContact(models.Model):
     _inherit = 'hr.contract'
 
@@ -150,3 +112,60 @@ class HrContact(models.Model):
     @api.depends('salary_biweekly', 'wage')
     def _salary_biweekly(self):
         self.salary_biweekly = (self.wage / 2)
+
+class leavefields(models.Model):
+    _inherit = 'hr.leave.type'
+
+    validity = fields.Integer(string='Vigencia en meses', default=18)
+    days = fields.Integer(string='Dias')
+    antiquity_years = fields.Integer(string='Antigüedad')
+
+
+class leaveasignations(models.Model):
+    _inherit = 'hr.leave.allocation'
+
+    antiquity = fields.Integer(string='Antigüedad Años')
+    validity = fields.Integer(string='Vigencia en meses', default=18)
+    date_in = fields.Date(string='Fecha de Ingreso')
+    antiquity_years_allocation = fields.Integer(related='holiday_status_id.antiquity_years', string='')
+    comple_laboral = fields.Date(string='Cumpleaños Laboral', compute='_cumple_laboral_calcution')
+    vencimiento = fields.Date(string='Vencimiento', compute='_cumple_laboral_calcution')
+    unusable_days = fields.Boolean(string='Dias no utilizables',default=False)
+    extended_permission = fields.Boolean(string='Permiso Extendido', default=False)
+
+    @api.onchange('employee_id')
+    def _onchange_antiquity(self):
+        if self.employee_id:
+            self.antiquity = self.employee_id.antiquity_years
+            self.date_in = self.employee_id.date_in
+
+    @api.onchange('holiday_status_id')
+    def _onchange_days(self):
+        if self.holiday_status_id:
+            self.number_of_days_display = self.holiday_status_id.days
+
+    @api.one
+    @api.depends('date_in', 'comple_laboral', 'antiquity', 'validity')
+    def _cumple_laboral_calcution(self):
+        if self.date_in:
+            self.comple_laboral = fields.Date.from_string(self.date_in) + relativedelta(years=self.antiquity)
+            self.vencimiento = fields.Date.from_string(self.comple_laboral) + relativedelta(months=self.validity)
+
+    def _unusable_days_function(self):
+        today = fields.Date.from_string(fields.Date.today())
+        if today <= self.vencimiento:
+            self.unusable_days = True 
+
+
+
+class issues_leaves(models.Model):
+    _inherit = 'hr.leave'
+
+    days_before_approval = fields.Integer(string="Saldo de días antes de la aprobación")
+
+    @api.onchange('holiday_status_id')
+    def _onchange_days_before_approval(self):
+        if self.holiday_status_id:
+            self.days_before_approval = self.holiday_status_id.virtual_remaining_leaves
+
+
