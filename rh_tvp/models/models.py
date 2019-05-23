@@ -162,13 +162,13 @@ class issues_leaves(models.Model):
     _inherit = 'hr.leave'
 
     days_before_approval = fields.Integer(string="Saldo de días antes de la aprobación")
-    unusable_days = fields.Boolean(string='Dias no utilizables')
-    extended_permission = fields.Boolean(string='Permiso Extendido')
-    expiration = fields.Date(string="Fecha de Vencimiento")
-    days_to_expiration = fields.Char(string="Tiempo de Expiracion")
+    unusable_days = fields.Boolean(string='Dias no utilizables', compute='_onchange_holyday', store=True)
+    extended_permission = fields.Boolean(string='Permiso Extendido', compute='_onchange_holyday', store=True)
+    expiration = fields.Date(string="Fecha de Vencimiento", compute='_onchange_holyday', store=True)
+    days_to_expiration = fields.Char(string="Tiempo de Expiracion", compute='_onchange_holyday', store=True)
 
     @api.one
-    @api.onchange('holiday_status_id')
+    @api.depends('holiday_status_id')
     def _onchange_holyday(self):
         for rec in self:
             if rec.holiday_status_id:
@@ -176,6 +176,7 @@ class issues_leaves(models.Model):
                 rec.unusable_days = res.unusable_days
                 rec.extended_permission = res.extended_permission
                 rec.expiration = res.vencimiento
+
                 if rec.unusable_days == True and rec.extended_permission == False:
                     raise UserError(_('Los dias dentro de esta categoria se encuentran vencidos, consulta con tu administrador'))
 
