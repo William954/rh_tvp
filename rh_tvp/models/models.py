@@ -172,7 +172,7 @@ class issues_leaves(models.Model):
         if self.holiday_status_id:
             self.days_before_approval = self.holiday_status_id.virtual_remaining_leaves
 
-    @api.multi
+    @api.one
     @api.onchange('holiday_status_id')
     def _onchange_holyday(self):
         for rec in self:
