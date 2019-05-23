@@ -153,19 +153,26 @@ class leaveasignations(models.Model):
 
     def _unusable_days_function(self):
         today = fields.Date.from_string(fields.Date.today())
-        if today <= self.vencimiento:
-            self.unusable_days = True 
-
+        if self.vencimiento:
+            if today > self.vencimiento:
+                self.unusable_days = True
 
 
 class issues_leaves(models.Model):
     _inherit = 'hr.leave'
 
     days_before_approval = fields.Integer(string="Saldo de días antes de la aprobación")
+    unusable_days = fields.Boolean(string='Dias no utilizables', compute='_vencimient_extendido')
+    extended_permission = fields.Boolean(string='Permiso Extendido')
 
     @api.onchange('holiday_status_id')
     def _onchange_days_before_approval(self):
         if self.holiday_status_id:
             self.days_before_approval = self.holiday_status_id.virtual_remaining_leaves
 
-
+    @api.onchange('holiday_status_id')
+    def _onchange_holyday(self):
+        for rec in self:
+            if rec.holiday_status_id:
+                res = self.env['hr.leave.allocation'].search([('holiday_status_id', '=', self.holiday_status_id.id)])
+                rec.unusable_days = res.unusable_days

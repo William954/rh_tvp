@@ -103,6 +103,8 @@
               <field name="arch" type="xml">
                 <xpath expr="//field[@name='department_id']" position="after">
                   <field name="days_before_approval"/>
+                  <field name="unusable_days"/>
+                  <field name="extended_permission"/>
                 </xpath>
               </field>
       </record>
