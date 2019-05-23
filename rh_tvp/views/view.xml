@@ -102,9 +102,11 @@
               <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
               <field name="arch" type="xml">
                 <xpath expr="//field[@name='department_id']" position="after">
-                  <field name="days_before_approval"/>
-                  <field name="unusable_days"/>
-                  <field name="extended_permission"/>
+                  <field name="days_before_approval" />
+                  <field name="expiration" />
+                  <field name="days_to_expiration" />
+                  <field name="unusable_days" invisible="1"/>
+                  <field name="extended_permission" invisible="1"/>
                 </xpath>
               </field>
       </record>
