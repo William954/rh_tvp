@@ -150,7 +150,7 @@ class leaveasignations(models.Model):
         if self.date_in:
             self.comple_laboral = fields.Date.from_string(self.date_in) + relativedelta(years=self.antiquity)
             self.vencimiento = fields.Date.from_string(self.comple_laboral) + relativedelta(months=self.validity)
-
+    @api.one
     def _unusable_days_function(self):
         today = fields.Date.from_string(fields.Date.today())
         if self.vencimiento:
@@ -173,7 +173,6 @@ class issues_leaves(models.Model):
             self.days_before_approval = self.holiday_status_id.virtual_remaining_leaves
 
     @api.one
-    @api.multi
     @api.onchange('holiday_status_id')
     def _onchange_holyday(self):
         for rec in self:
