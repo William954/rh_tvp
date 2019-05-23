@@ -167,7 +167,6 @@ class issues_leaves(models.Model):
     expiration = fields.Date(string="Fecha de Vencimiento")
     days_to_expiration = fields.Char(string="Tiempo de Expiracion")
 
-    @api.one
     @api.onchange('holiday_status_id')
     def _onchange_days_before_approval(self):
         if self.holiday_status_id:
