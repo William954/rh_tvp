@@ -165,14 +165,15 @@ class issues_leaves(models.Model):
     unusable_days = fields.Boolean(string='Dias no utilizables')
     extended_permission = fields.Boolean(string='Permiso Extendido')
     expiration = fields.Date(string="Fecha de Vencimiento")
-    days_to_expiration = fields.Char(string="Tiempo de Expiracion", stored=True)
+    days_to_expiration = fields.Char(string="Tiempo de Expiracion")
 
     @api.one
     @api.onchange('holiday_status_id')
     def _onchange_days_before_approval(self):
         if self.holiday_status_id:
             self.days_before_approval = self.holiday_status_id.virtual_remaining_leaves
-    @api.one
+
+    @api.multi
     @api.onchange('holiday_status_id')
     def _onchange_holyday(self):
         for rec in self:
