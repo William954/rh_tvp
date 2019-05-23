@@ -167,11 +167,6 @@ class issues_leaves(models.Model):
     expiration = fields.Date(string="Fecha de Vencimiento")
     days_to_expiration = fields.Char(string="Tiempo de Expiracion")
 
-    @api.onchange('holiday_status_id')
-    def _onchange_days_before_approval(self):
-        if self.holiday_status_id:
-            self.days_before_approval = self.holiday_status_id.virtual_remaining_leaves
-
     @api.one
     @api.onchange('holiday_status_id')
     def _onchange_holyday(self):
@@ -192,3 +187,8 @@ class issues_leaves(models.Model):
                     months = diff.months
                     days = diff.days
                     rec.days_to_expiration = '{} Años {} Meses {} Dias'.format(years, months, days)
+
+    @api.onchange('holiday_status_id')
+    def _onchange_days_before_approval(self):
+        if self.holiday_status_id:
+            self.days_before_approval = self.holiday_status_id.virtual_remaining_leaves
