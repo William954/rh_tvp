@@ -130,7 +130,7 @@ class leaveasignations(models.Model):
     antiquity_years_allocation = fields.Integer(related='holiday_status_id.antiquity_years', string='')
     comple_laboral = fields.Date(string='Cumpleaños Laboral', compute='_cumple_laboral_calcution')
     vencimiento = fields.Date(string='Vencimiento', compute='_cumple_laboral_calcution')
-    unusable_days = fields.Boolean(string='Dias no utilizables',default=False)
+    unusable_days = fields.Boolean(string='Dias no utilizables',default=False, compute='_unusable_days_function')
     extended_permission = fields.Boolean(string='Permiso Extendido', default=False)
 
     @api.onchange('employee_id')
