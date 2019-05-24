@@ -161,16 +161,16 @@ class leaveasignations(models.Model):
 class issues_leaves(models.Model):
     _inherit = 'hr.leave'
 
-    days_before_approval = fields.Integer(string="Saldo de días antes de la aprobación")
+    days_before_approval = fields.Integer(string="Saldo de días antes de la aprobación", compute="_holyday", store=True)
     unusable_days = fields.Boolean(string='Dias no utilizables', compute='_holyday', store=True)
     extended_permission = fields.Boolean(string='Permiso Extendido', compute='_holyday', store=True)
     expiration = fields.Date(string="Fecha de Vencimiento", compute='_holyday', store=True)
     days_to_expiration = fields.Char(string="Tiempo de Expiracion", compute='_message_error', store=True)
 
-    @api.onchange('holiday_status_id')
-    def _onchange_days_before_approval(self):
-        if self.holiday_status_id:
-            self.days_before_approval = self.holiday_status_id.virtual_remaining_leaves
+    # @api.onchange('holiday_status_id')
+    # def _onchange_days_before_approval(self,vals):
+    #     if self.holiday_status_id:
+    #         self.days_before_approval = self.holiday_status_id.vals.get('virtual_remaining_leaves')
 
     @api.one
     @api.depends('holiday_status_id')
