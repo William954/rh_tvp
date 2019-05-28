@@ -172,7 +172,7 @@ class issues_leaves(models.Model):
         if self.holiday_status_id:
             self.days_before_approval = self.holiday_status_id.virtual_remaining_leaves
 
-    @api.multi
+    @api.one
     @api.depends('expiration','unusable_days','extended_permission')
     def _message_error(self):
         if self.unusable_days == True and self.extended_permission == False:
