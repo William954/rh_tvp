@@ -175,8 +175,8 @@ class issues_leaves(models.Model):
     @api.one
     @api.depends('expiration','unusable_days','extended_permission')
     def _message_error(self):
-        if self.unusable_days == True and self.extended_permission == False:
-            raise UserError(_('Los dias dentro de esta categoria se encuentran vencidos, consulta con tu administrador'))
+        # if self.unusable_days == True and self.extended_permission == False:
+        #     raise UserError(_('Los dias dentro de esta categoria se encuentran vencidos, consulta con tu administrador'))
 
         if self.expiration:
             today = fields.Date.from_string(fields.Date.today())
