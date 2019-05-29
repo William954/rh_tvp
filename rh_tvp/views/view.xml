@@ -25,6 +25,9 @@
                 <xpath expr="//field[@name='department_id']" position="after">
                   <field name="depto_name" attrs="{'invisible': [('depto_name','=',False)]}"/>
                 </xpath>
+                <xpath expr="//field[@name='birthday']" position="after">
+                    <field name="employee_years"/>
+                </xpath>
               </field>
       </record>
 

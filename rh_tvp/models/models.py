@@ -31,6 +31,19 @@ class RHFields(models.Model):
     depto_name = fields.Char(string='Nombre del Departamento')
     year_in = fields.Integer(string="Año de entrada", compute="_year_in", store=True)
     day_in = fields.Integer(string="Dia de entrada", compute="_year_in", store=True)
+    employee_years = fields.Integer(string='Edad Actual', compute='_compute_age')
+
+    @api.multi
+    @api.depends('birthday')
+    def _compute_age(self):
+        for record in self:
+            if record.birthday and record.birthday <= fields.Date.today():
+                record.employee_years = relativedelta(
+                    fields.Date.from_string(fields.Date.today()),
+                    fields.Date.from_string(record.birthday)).years
+            else:
+
+                record.employee_years = 0
 
     @api.one
     @api.depends('date_in')
