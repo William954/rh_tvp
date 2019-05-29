@@ -29,6 +29,15 @@ class RHFields(models.Model):
     vat_tvp = fields.Char(string="RFC")
     curp_tvp = fields.Char(string="CURP")
     depto_name = fields.Char(string='Nombre del Departamento')
+    year_in = fields.Integer(string="Año de entrada", compute="_year_in", store=True)
+    day_in = fields.Integer(string="Dia de entrada", compute="_year_in", store=True)
+
+    @api.one
+    @api.depends('date_in')
+    def _year_in(self):
+        if self.date_in:
+            self.year_in = datetime.strptime(str(self.date_in), '%Y-%m-%d').strftime('%Y')
+            self.day_in = datetime.strptime(str(self.date_in), '%Y-%m-%d').strftime('%d')
 
     @api.onchange('department_id')
     def _onchange_name_depto(self):
