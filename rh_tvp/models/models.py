@@ -21,6 +21,7 @@ class RHFields(models.Model):
                                  (5, '05'), (6, '06'), (7, '07'), (8, '08'),
                                  (9, '09'), (10, '10'), (11, '11'), (12, '12')], string='Mes de Entrada', store=True,
                                 compute="_month_in")
+    birthday_day = fields.Integer(string='Dia de birthday', compute='_month_born', store=True)
     month_born = fields.Selection([(1, '01'), (2, '02'), (3, '03'), (4, '04'),
                                    (5, '05'), (6, '06'), (7, '07'), (8, '08'),
                                    (9, '09'), (10, '10'), (11, '11'), (12, '12')], string='Mes de Compleaños',
@@ -68,6 +69,7 @@ class RHFields(models.Model):
     def _month_born(self):
         if self.birthday:
             self.month_born = datetime.strptime(str(self.birthday), '%Y-%m-%d').strftime('%m')
+            self.birthday_day = datetime.strptime(str(self.birthday), '%Y-%m-%d').strftime('%d')
 
     @api.one
     @api.depends('date_in', 'date_out', 'antiquity', 'active')
