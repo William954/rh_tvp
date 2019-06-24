@@ -222,3 +222,7 @@ class issues_leaves(models.Model):
                 rec.expiration = res.vencimiento
 
 
+#Se hizo una prueba de GitKraken
+
+
+
