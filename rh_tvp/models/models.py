@@ -32,8 +32,8 @@ class RHFields(models.Model):
     depto_name = fields.Char(string='Nombre del Departamento')
     year_in = fields.Integer(string="Año de entrada", compute="_year_in", store=True)
     day_in = fields.Integer(string="Dia de entrada", compute="_year_in", store=True)
-    employee_years = fields.Integer(string='Edad Actual', compute='_compute_age')
-
+    employee_years = fields.Integer(string='Edad Actual')
+    # , compute = '_compute_age'
     # @api.one
     # @api.depends('birthday')
     # def _compute_age(self):
