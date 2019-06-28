@@ -62,7 +62,7 @@ class RHFields(models.Model):
             self.birthday_day = datetime.strptime(str(self.birthday), '%Y-%m-%d').strftime('%d')
 
             for record in self:
-                if record.birthday and record.birthday <= fields.Date.today():
+                if record.birthday:
                     record.employee_years = relativedelta(
                         fields.Date.from_string(fields.Date.today()),
                         fields.Date.from_string(record.birthday)).years
