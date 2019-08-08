@@ -9,31 +9,31 @@ from dateutil.relativedelta import relativedelta
 class RHFields(models.Model):
     _inherit = 'hr.employee'
 
-    antiquity = fields.Char(string='Antigüedad', compute='_antiquity_calculation')
-    antiquity_years = fields.Integer(string='Antigüedad Años', compute='_compute_years')
+    antiquity = fields.Char(string='Antigüedad', compute='_antiquity_calculation', track_visibility=True)
+    antiquity_years = fields.Integer(string='Antigüedad Años', compute='_compute_years', track_visibility=True)
     date_in = fields.Date(string='Fecha de Ingreso')
     date_out = fields.Date(string='Fecha de Baja')
     reason = fields.Selection(
         [('1', 'Renuncia'), ('2', 'Recorte de Personal'), ('3', 'Fin de Contrato'), ('4', 'Otro')],
-        string='Motivo de Baja')
-    commnets = fields.Text(string='Comentarios')
+        string='Motivo de Baja',track_visibility=True)
+    commnets = fields.Text(string='Comentarios',track_visibility=True)
     month_in = fields.Selection([(1, '01'), (2, '02'), (3, '03'), (4, '04'),
                                  (5, '05'), (6, '06'), (7, '07'), (8, '08'),
                                  (9, '09'), (10, '10'), (11, '11'), (12, '12')], string='Mes de Entrada', store=True,
-                                compute="_month_in")
-    birthday_day = fields.Integer(string='Dia de birthday', compute='_month_born', store=True)
+                                compute="_month_in",track_visibility=True)
+    birthday_day = fields.Integer(string='Dia de birthday', compute='_month_born',track_visibility=True, store=True)
     month_born = fields.Selection([(1, '01'), (2, '02'), (3, '03'), (4, '04'),
                                    (5, '05'), (6, '06'), (7, '07'), (8, '08'),
                                    (9, '09'), (10, '10'), (11, '11'), (12, '12')], string='Mes de Compleaños',
-                                  store=True, compute="_month_born")
-    imss = fields.Char(string="IMSS")
-    vat_tvp = fields.Char(string="RFC")
-    curp_tvp = fields.Char(string="CURP")
-    depto_name = fields.Char(string='Nombre del Departamento')
-    year_in = fields.Integer(string="Año de entrada", compute="_year_in", store=True)
-    day_in = fields.Integer(string="Dia de entrada", compute="_year_in", store=True)
-    employee_years = fields.Integer(string='Edad Actual', compute='_compute_age')
-    birthday_related = fields.Date(related='birthday', string='Fecha de nacimiento')
+                                  store=True, track_visibility=True,compute="_month_born")
+    imss = fields.Char(string="IMSS",track_visibility=True)
+    vat_tvp = fields.Char(string="RFC",track_visibility=True)
+    curp_tvp = fields.Char(string="CURP",track_visibility=True)
+    depto_name = fields.Char(string='Nombre del Departamento'.track_visibility=True)
+    year_in = fields.Integer(string="Año de entrada", compute="_year_in", store=True,track_visibility=True)
+    day_in = fields.Integer(string="Dia de entrada", compute="_year_in", store=True,track_visibility=True)
+    employee_years = fields.Integer(string='Edad Actual', compute='_compute_age',track_visibility=True)
+    birthday_related = fields.Date(related='birthday', string='Fecha de nacimiento',track_visibility=True)
 
     @api.multi
     @api.depends('birthday_related')
@@ -104,17 +104,17 @@ class RHFields(models.Model):
 class HrContact(models.Model):
     _inherit = 'hr.contract'
 
-    contract_company = fields.Many2one('res.partner', string='Empresa Contratante')
+    contract_company = fields.Many2one('res.partner', string='Empresa Contratante',track_visibility=True)
     anual_base = fields.Selection([('1', '1'), ('2', '12.5'), ('3', '14'), ('4', '16'), ('5', '17')],
-                                  string='Base Anual')
-    salary_biweekly = fields.Float(string='Salario Quincenal', compute="_salary_biweekly")
-    salary_annual = fields.Float(string='Salario Anual', compute="_salary_annual")
-    date_low = fields.Date(string="Fecha de Baja")
+                                  string='Base Anual',track_visibility=True)
+    salary_biweekly = fields.Float(string='Salario Quincenal', compute="_salary_biweekly",track_visibility=True)
+    salary_annual = fields.Float(string='Salario Anual', compute="_salary_annual",track_visibility=True)
+    date_low = fields.Date(string="Fecha de Baja",track_visibility=True)
     reason_low = fields.Selection(
         [('1', 'Contrato Vencido'), ('2', 'Renuncia Voluntaria'), ('3', 'Renovacion de Contrato'),
-         ('4', 'Cambio de puesto o departamento'), ('5', 'Recorte de Personal')], string="Motivo de baja del contrato")
-    settlement = fields.Float(string="Monto Finiquitado")
-    commnets = fields.Text(string="Comentarios")
+         ('4', 'Cambio de puesto o departamento'), ('5', 'Recorte de Personal')], string="Motivo de baja del contrato",track_visibility=True)
+    settlement = fields.Float(string="Monto Finiquitado",track_visibility=True)
+    commnets = fields.Text(string="Comentarios",track_visibility=True)
 
     @api.one
     @api.depends('anual_base', 'salary_annual', 'wage')
@@ -138,22 +138,22 @@ class HrContact(models.Model):
 class leavefields(models.Model):
     _inherit = 'hr.leave.type'
 
-    validity = fields.Integer(string='Vigencia en meses', default=18)
-    days = fields.Integer(string='Dias')
-    antiquity_years = fields.Integer(string='Antigüedad')
+    validity = fields.Integer(string='Vigencia en meses', default=18,track_visibility=True)
+    days = fields.Integer(string='Dias',track_visibility=True)
+    antiquity_years = fields.Integer(string='Antigüedad',track_visibility=True)
 
 
 class leaveasignations(models.Model):
     _inherit = 'hr.leave.allocation'
 
-    antiquity = fields.Integer(string='Antigüedad Años')
-    validity = fields.Integer(string='Vigencia en meses', default=18)
-    date_in = fields.Date(string='Fecha de Ingreso')
+    antiquity = fields.Integer(string='Antigüedad Años',track_visibility=True)
+    validity = fields.Integer(string='Vigencia en meses', default=18,track_visibility=True)
+    date_in = fields.Date(string='Fecha de Ingreso',track_visibility=True)
     antiquity_years_allocation = fields.Integer(related='holiday_status_id.antiquity_years', string='')
-    comple_laboral = fields.Date(string='Cumpleaños Laboral', compute='_cumple_laboral_calcution')
-    vencimiento = fields.Date(string='Vencimiento', compute='_cumple_laboral_calcution')
-    unusable_days = fields.Boolean(string='Dias no utilizables',default=False, compute='_unusable_days_function')
-    extended_permission = fields.Boolean(string='Permiso Extendido', default=False)
+    comple_laboral = fields.Date(string='Cumpleaños Laboral', compute='_cumple_laboral_calcution',track_visibility=True)
+    vencimiento = fields.Date(string='Vencimiento', compute='_cumple_laboral_calcution',track_visibility=True)
+    unusable_days = fields.Boolean(string='Dias no utilizables',default=False, compute='_unusable_days_function',track_visibility=True)
+    extended_permission = fields.Boolean(string='Permiso Extendido', default=False,track_visibility=True)
 
     @api.onchange('employee_id')
     def _onchange_antiquity(self):
@@ -183,11 +183,11 @@ class leaveasignations(models.Model):
 class issues_leaves(models.Model):
     _inherit = 'hr.leave'
 
-    days_before_approval = fields.Integer(string="Saldo de días antes de la aprobación")
-    unusable_days = fields.Boolean(string='Dias no utilizables', compute='_holiday', store=True)
-    extended_permission = fields.Boolean(string='Permiso Extendido', compute='_holiday', store=True)
-    expiration = fields.Date(string="Fecha de Vencimiento", compute='_holiday', store=True)
-    days_to_expiration = fields.Char(string="Tiempo de Expiracion", compute='_message_error', store=True)
+    days_before_approval = fields.Integer(string="Saldo de días antes de la aprobación",track_visibility=True)
+    unusable_days = fields.Boolean(string='Dias no utilizables', compute='_holiday', store=True,track_visibility=True)
+    extended_permission = fields.Boolean(string='Permiso Extendido', compute='_holiday', store=True,track_visibility=True)
+    expiration = fields.Date(string="Fecha de Vencimiento", compute='_holiday', store=True,track_visibility=True)
+    days_to_expiration = fields.Char(string="Tiempo de Expiracion", compute='_message_error', store=True,track_visibility=True)
 
     @api.onchange('holiday_status_id')
     def _onchange_days_before_approval(self):
@@ -218,9 +218,4 @@ class issues_leaves(models.Model):
                 rec.unusable_days = res.unusable_days
                 rec.extended_permission = res.extended_permission
                 rec.expiration = res.vencimiento
-
-
-#Se hizo una prueba de GitKraken
-
-
 
